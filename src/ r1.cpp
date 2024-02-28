@@ -62,7 +62,7 @@ class MinimalPublisher : public rclcpp::Node
 {
 public:
   MinimalPublisher()
-  : Node("minimal_publisher")
+  : Node("r1_node")
   {
     publisher_ = this->create_publisher<can_plugins2::msg::Frame>("can_tx", 10);
 
@@ -91,6 +91,10 @@ private:
 
     if (joy_msg->buttons[3] == 1){      
       publisher_->publish(generate_shirasu_target(0x100, -10));
+    }
+
+    if (joy_msg->buttons[2] == 0 && joy_msg->buttons[3] == 0){      
+      publisher_->publish(generate_shirasu_target(0x100, 0));
     }
   }
 
